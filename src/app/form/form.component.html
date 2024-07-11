@@ -1,0 +1,160 @@
+<div id="add-form">
+    <form id="form-container" [formGroup]="recordForm" (ngSubmit)="onSubmit()">
+        <input type="hidden" id="id" />
+
+        <div class="horizontal-input">
+            <div>
+                <label class="required" for="fname">First Name</label>
+                <div class="input-container">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" formControlName="firstName" />
+                    @if ( recordForm.controls['firstName'].invalid &&
+                    (recordForm.controls['firstName'].dirty ||
+                    recordForm.controls['firstName'].touched)) {
+                    <p class="error-message">
+                        First Name is required
+                    </p>
+                    }
+                </div>
+            </div>
+            <div class="horizontal-input-spacer"></div>
+            <div>
+                <label class="required">Last Name</label>
+                <div class="input-container">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" formControlName="lastName" />
+                    @if (
+                    recordForm.controls['lastName'].invalid &&
+                    (recordForm.controls['lastName'].dirty ||
+                    recordForm.controls['lastName'].touched)
+                    ) {
+                    <p class="error-message">
+                        Last Name is required
+                    </p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="input-container">
+            <label class="required">Email:</label>
+            <div class="input-container">
+                <i class="fa-solid fa-envelope"></i>
+                <input formControlName="email" type="email" />
+                @if (
+                recordForm.controls['email'].invalid &&
+                (recordForm.controls['email'].dirty ||
+                recordForm.controls['email'].touched)
+                ) {
+                <p class="error-message">
+                    Valid Email is required
+                </p>
+                }
+            </div>
+        </div>
+
+        <div id="#dob-state" class="horizontal-input">
+            <div>
+                <label class="required" for="birthday">Date of birth</label>
+                <div class="input-container">
+                    <i class="fa-solid fa-calendar"></i>
+                    <input type="date" formControlName="dateOfBirth" />
+                    @if (
+                    recordForm.controls['dateOfBirth'].invalid &&
+                    (recordForm.controls['dateOfBirth'].dirty ||
+                    recordForm.controls['dateOfBirth'].touched)
+                    ) {
+                    <p class="error-message">
+                        Date of Birth is required
+                    </p>
+                    }
+                </div>
+            </div>
+            <div class="horizontal-input-spacer"></div>
+            <div>
+                <label class="required" for="state">Select your state:</label>
+                <div class="input-container">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <select formControlName="state">
+                        <option value="" disabled>Select your state</option>
+                        @for (state of states; track state) {
+                        <option [value]="state">{{ state }}</option>
+                        }
+                    </select>
+                    @if (
+
+                    recordForm.controls['state'].invalid &&
+                    (recordForm.controls['state'].dirty ||
+                    recordForm.controls['state'].touched)
+
+                    ) {
+                    <p class="error-message">
+                        State is required
+                    </p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <label class="required" for="male">Choose your gender:</label>
+        <div class="radio-group">
+            <div>
+                <input type="radio" id="male" formControlName="gender" value="Male" />
+                <label for="male">Male</label>
+            </div>
+            <div>
+                <input type="radio" id="female" formControlName="gender" value="Female" />
+                <label for="female">Female</label>
+            </div>
+        </div>
+
+        <label for="painting">Select your hobbies:</label>
+        <div class="radio-group">
+            @for (hobby of hobbies; track hobby) {
+            <div>
+                <input type="checkbox" [value]="hobby" (change)="onHobbyChange($event)" />
+                <label>{{ hobby }}</label>
+            </div>
+            }
+        </div>
+
+        <div class="horizontal-input">
+            <div>
+                <label class="required" for="password">Password</label>
+                <div class="input-container">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" formControlName="password" />
+                    @if(recordForm.controls['password'].invalid &&
+                    (recordForm.controls['password'].dirty ||
+                    recordForm.controls['password'].touched)){
+                    <p class="error-message">Password is required</p>
+                    }
+                </div>
+            </div>
+            <div class="horizontal-input-spacer"></div>
+            <div>
+                <label class="required" for="confirm-password">Confirm Password</label>
+                <div class="input-container">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" formControlName="confirmPassword" />
+                    @if (
+                    recordForm.controls['confirmPassword'].invalid &&
+                    (recordForm.controls['confirmPassword'].dirty ||
+                    recordForm.controls['confirmPassword'].touched)
+                    ) {
+                    <p class="error-message">
+                        Confirm Password is required
+                    </p>
+                    } @else if (recordForm.errors?.['mismatch'] && (recordForm.controls['confirmPassword'].dirty ||
+                    recordForm.controls['confirmPassword'].touched)) {
+                    <p class="error-message">
+                        Passwords do not match</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+        <button type="submit" [disabled]="!recordForm.valid">Add</button>
+    </form>
+</div>
