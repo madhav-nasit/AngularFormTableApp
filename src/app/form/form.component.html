@@ -1,6 +1,6 @@
 <div id="add-form">
     <form id="form-container" [formGroup]="recordForm" (ngSubmit)="onSubmit()">
-        <input type="hidden" id="id" />
+        <input type="hidden" id="id" formControlName="id" />
 
         <div class="horizontal-input">
             <div>
@@ -109,11 +109,18 @@
         </div>
 
         <label for="painting">Select your hobbies:</label>
-        <div class="radio-group">
-            @for (hobby of hobbies; track hobby) {
+        <div class="radio-group" formArrayName="hobbies">
+            <!-- @for (hobby of hobbies; track hobby; let idx = $index) {
             <div>
-                <input type="checkbox" [value]="hobby" (change)="onHobbyChange($event)" />
-                <label>{{ hobby }}</label>
+                <input [id]="hobby" type="checkbox" [form]="record?.hobbies?.includes(hobby)"
+                    (change)="onHobbyChange($event, hobby)" />
+                <label [for]="hobby">{{ hobby }}</label>
+            </div>
+            } -->
+            @for (hobby of hobbies.controls; track $index; let i=$index) {
+            <div>
+                <input id="hobby-{{ i }}" type="checkbox" [formControlName]="i" />
+                <label for="hobby-{{ i }}">{{ hobbiesList[i] }}</label>
             </div>
             }
         </div>
@@ -154,7 +161,10 @@
             </div>
         </div>
 
-
+        @if (recordForm.controls['id'].value) {
+        <button type="submit" [disabled]="!recordForm.valid">Edit</button>
+        } @else {
         <button type="submit" [disabled]="!recordForm.valid">Add</button>
+        }
     </form>
 </div>

@@ -1,3 +1,107 @@
+*:root {
+  box-sizing: border-box;
+  --primary: #8034de;
+  --text: #333333;
+  --text-dark: #e6e6e6;
+  --background: #f5f5f5;
+  --background-secondary: #ffffff;
+  --border: #e6e6e6;
+  --tertiary: #d3c8e0;
+  --error: #ff3333;
+  --success: green;
+}
+
+body {
+  margin: 0px;
+  background-color: var(--background);
+  color: var(--text);
+  font-family: Verdana, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* navbar styles starts here */
+.navbar {
+  background-color: var(--background-secondary);
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0 32px;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.navbar h3 {
+  padding: 14px 0px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.navbar div {
+  display: flex;
+}
+
+.navbar div a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+/* change background color of navbar link for not active class */
+.navbar div a:hover:not(.active) {
+  background-color: var(--tertiary);
+}
+
+/* change background color and text color of active link */
+.navbar a.active {
+  background-color: var(--primary);
+  color: var(--text-dark);
+}
+
+/* navbar styles ends here */
+
+/* main styles starts here */
+.main {
+  display: flex;
+  margin: 16px;
+}
+
+.main > div {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 16px;
+}
+
+#add-form {
+  flex: 40%;
+  align-self: flex-start;
+}
+
+#detail-view {
+  flex: 60%;
+  align-self: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: 16px;
+  overflow-x: auto;
+}
+
+#detail-view > h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+/* main styles ends here */
+
+/* Add/Edit form styles starts here */
 .input-container {
   position: relative;
   margin: 0px 0px 16px 0px;
@@ -70,6 +174,20 @@ select {
   box-sizing: border-box;
 }
 
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url(/images/chevron-down.svg);
+  background-repeat: no-repeat;
+  background-position: center right 10px;
+  background-size: 10px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
 input[type="button"],
 button {
   min-width: 200px;
@@ -80,10 +198,6 @@ button {
   color: white;
   text-decoration: none;
   cursor: pointer;
-}
-
-button:disabled {
-  background-color: var(--tertiary);
 }
 
 input[type="text"]::before,
@@ -108,6 +222,59 @@ select:focus {
   line-height: 1.2;
   margin-top: 2px;
 }
+
+.alert {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: rgba(0, 128, 0, 0.9);
+  color: #fff;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 1;
+  display: none;
+}
+
+.show {
+  display: block;
+  opacity: 1;
+}
+
+#update-btn {
+  display: none;
+}
+
+#user-list {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#user-list td,
+#user-list th {
+  border: 1px solid var(--border);
+  padding: 8px;
+}
+
+#user-list tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#user-list tr:hover {
+  background-color: #ddd;
+}
+
+#user-list th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: var(--primary);
+  color: var(--text-dark);
+}
+
+/* Add/Edit form styles ends here */
 
 /* Data view styles starts here */
 .user-card {
@@ -177,6 +344,9 @@ select:focus {
   /* navbar styles ends here */
 
   /* main styles starts here */
+  .main {
+    flex-direction: column;
+  }
 
   #detail-view {
     flex: 60%;
@@ -213,13 +383,27 @@ select:focus {
 
 /* Medium devices (landscape tablets, 601px to 768px) */
 @media only screen and (min-width: 601px) and (max-width: 768px) {
+  /* main styles starts here */
+  .main {
+    flex-direction: column;
+  }
+
+  #detail-view {
+    flex: 60%;
+    margin-left: 0;
+    margin-top: 16px;
+  }
+
   .horizontal-input {
     flex-direction: column;
   }
+
+  /* main styles ends here */
 }
 
 /* Medium devices ( 768px and up) */
 @media only screen and (min-width: 769px) and (max-width: 990px) {
+  /* main styles starts here */
   .horizontal-input {
     flex-direction: column;
   }
@@ -228,4 +412,6 @@ select:focus {
   button {
     width: 100%;
   }
+
+  /* main styles ends here */
 }

@@ -1,5 +1,11 @@
 <app-navbar></app-navbar>
 <div class="main">
-    <app-form></app-form>
+    <div id="add-form">
+        <app-form [record]="selectedRecord" (addRecord)="handleAddRecord($event)"></app-form>
+    </div>
+    <div id="detail-view">
+        <app-table [records]="records" (editRecord)="handleEditRecord($event)"
+            (deleteRecord)="handleDeleteRecord($event)"></app-table>
+    </div>
 </div>
 <app-footer></app-footer>

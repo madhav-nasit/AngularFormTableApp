@@ -26,6 +26,20 @@ body {
   padding: 0px 0px 50px 0px;
 }
 
+#add-form {
+  flex: 40%;
+  align-self: flex-start;
+}
+
+#detail-view {
+  flex: 60%;
+  align-self: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: 16px;
+  overflow-x: auto;
+}
+
 .main > div {
   background-color: var(--background-secondary);
   border: 1px solid var(--border);

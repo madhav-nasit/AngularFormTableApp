@@ -1,0 +1,34 @@
+<div>
+    <h4>User List:</h4>
+    <table id="user-list">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Birthday</th>
+            <th>State</th>
+            <th>Gender</th>
+            <th>Hobbies</th>
+            <th>Actions</th>
+        </tr>
+        <!-- User data will be displayed here -->
+        @for (record of records; track record.id; let i = $index) {
+        <tr>
+            <td>{{i + 1}}</td>
+            <td>{{record.firstName}} {{record.lastName}}</td>
+            <td>{{record.email}}</td>
+            <td>{{record.dateOfBirth}}</td>
+            <td>{{record.state}}</td>
+            <td>{{record.gender}}</td>
+            <td>{{getFilteredHobbies(record.hobbies)}}</td>
+            <td>
+                <div class="user-buttons">
+                    <button class="edit" (click)="onEdit(record)">Edit</button>
+                    <div class="horizontal-input-spacer"></div>
+                    <button class="delete" (click)="onDelete(record.id)">Delete</button>
+                </div>
+            </td>
+        </tr>
+        }
+    </table>
+</div>
