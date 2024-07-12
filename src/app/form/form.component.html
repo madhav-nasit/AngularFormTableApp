@@ -130,20 +130,33 @@
                 <label class="required" for="password">Password</label>
                 <div class="input-container">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" formControlName="password" />
-                    @if(recordForm.controls['password'].invalid &&
-                    (recordForm.controls['password'].dirty ||
-                    recordForm.controls['password'].touched)){
-                    <p class="error-message">Password is required</p>
+                    <input [type]="showPassword ? 'text' : 'password'" formControlName="password" />
+                    <button type="button" class="eye-icon" (click)="togglePasswordVisibility()">
+                        <i class="fa" [class]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                    </button>
+                    @if (recordForm.controls['password'].invalid && (recordForm.controls['password'].dirty ||
+                    recordForm.controls['password'].touched)) {
+                    <div>
+                        @if (recordForm.controls['password'].errors?.['required']) {
+                        <p class="error-message">Password is required</p>
+                        } @else if (recordForm.controls['password'].errors?.['passwordFormat']) {
+                        <p class="error-message">Password must be at least 8 characters long, contain an uppercase
+                            letter, a lowercase letter, a number, and a special character</p>
+                        }
+                    </div>
                     }
                 </div>
             </div>
+
             <div class="horizontal-input-spacer"></div>
             <div>
                 <label class="required" for="confirm-password">Confirm Password</label>
                 <div class="input-container">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" formControlName="confirmPassword" />
+                    <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" />
+                    <button type="button" class="eye-icon" (click)="toggleConfirmPasswordVisibility()">
+                        <i class="fa" [class]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                    </button>
                     @if (
                     recordForm.controls['confirmPassword'].invalid &&
                     (recordForm.controls['confirmPassword'].dirty ||
@@ -152,7 +165,8 @@
                     <p class="error-message">
                         Confirm Password is required
                     </p>
-                    } @else if (recordForm.errors?.['mismatch'] && (recordForm.controls['confirmPassword'].dirty ||
+                    } @else if (recordForm.errors?.['mismatch'] && (recordForm.controls['confirmPassword'].dirty
+                    ||
                     recordForm.controls['confirmPassword'].touched)) {
                     <p class="error-message">
                         Passwords do not match</p>

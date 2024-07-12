@@ -15,6 +15,21 @@
   box-sizing: border-box;
 }
 
+.eye-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 42px;
+  box-sizing: border-box;
+  min-width: unset;
+  background-color: rgba(0, 0, 0, 0);
+  color: var(--text);
+}
+
 .horizontal-input {
   display: flex;
   position: relative;

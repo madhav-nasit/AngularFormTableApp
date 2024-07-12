@@ -8,10 +8,12 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -53,11 +55,16 @@ export class FormComponent implements OnInit, OnChanges {
       state: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
       hobbies: new FormArray([]),
-      password: new FormControl('', Validators.required),
+      password: new FormControl('', [
+        Validators.required,
+        this.passwordFormatValidator(),
+      ]),
       confirmPassword: new FormControl('', Validators.required),
     },
-    { validators: () => this.passwordMatchValidator }
+    { validators: this.passwordMatchValidator }
   );
+  showPassword = false;
+  showConfirmPassword = false;
 
   states: string[] = [
     'Andhra Pradesh',
@@ -129,12 +136,32 @@ export class FormComponent implements OnInit, OnChanges {
     return this.recordForm.get('hobbies') as FormArray;
   }
 
-  passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
+  passwordFormatValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const password = control.value;
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      const valid = passwordRegex.test(password);
+      return valid ? null : { passwordFormat: true };
+    };
+  }
+
+  passwordMatchValidator(
+    group: AbstractControl
+  ): { [key: string]: boolean } | null {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     return password && confirmPassword && password === confirmPassword
       ? null
       : { mismatch: true };
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 
   onSubmit() {
