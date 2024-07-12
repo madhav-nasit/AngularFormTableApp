@@ -53,6 +53,16 @@ body {
     flex-direction: column;
   }
 
+  #detail-view {
+    flex: 60%;
+    margin-left: 0;
+    margin-top: 16px;
+  }
+
+  #dob-state {
+    flex-direction: column;
+  }
+
   input[type="button"],
   button {
     width: 100%;
@@ -62,6 +72,16 @@ body {
 /* Medium devices (landscape tablets, 601px to 768px) */
 @media only screen and (min-width: 601px) and (max-width: 768px) {
   .main {
+    flex-direction: column;
+  }
+
+  #detail-view {
+    flex: 60%;
+    margin-left: 0;
+    margin-top: 16px;
+  }
+
+  .horizontal-input {
     flex-direction: column;
   }
 }
