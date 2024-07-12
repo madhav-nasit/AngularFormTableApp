@@ -35,7 +35,8 @@ export class AppComponent {
     this.selectedRecord = record;
   }
 
-  handleDeleteRecord(index: number) {
-    this.records.splice(index, 1);
+  handleDeleteRecord(index: string) {
+    const recordIndex = this.records.findIndex((record) => record.id === index);
+    this.records.splice(recordIndex, 1);
   }
 }

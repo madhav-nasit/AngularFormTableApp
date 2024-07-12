@@ -12,7 +12,7 @@ import { Record } from '../form/form.component';
 export class TableComponent {
   @Input() records: any[] = [];
   @Output() editRecord = new EventEmitter<Record>();
-  @Output() deleteRecord = new EventEmitter<number>();
+  @Output() deleteRecord = new EventEmitter<string>();
 
   getFilteredHobbies(hobbies: { id: string; checked: boolean }[]) {
     return hobbies
@@ -25,7 +25,11 @@ export class TableComponent {
     this.editRecord.emit(record);
   }
 
-  onDelete(index: number) {
-    this.deleteRecord.emit(index);
+  onDelete(record: Record) {
+    if (
+      confirm('Are you sure to delete record for ' + record.firstName + '?')
+    ) {
+      this.deleteRecord.emit(record.id);
+    }
   }
 }
